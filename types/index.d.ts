@@ -1,4 +1,4 @@
-import { IWallet, BigNumber } from "@ijstech/eth-contract";
+import { IWallet, BigNumber } from "@ijstech/eth-wallet";
 import * as Contracts from "./contracts/index";
 export { Contracts };
 export interface IDeployOptions {

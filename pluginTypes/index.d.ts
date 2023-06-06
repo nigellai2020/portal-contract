@@ -1,5 +1,5 @@
-/// <amd-module name="@scom/portal-contract/contracts/@openzeppelin/contracts/token/ERC20/ERC20.json.ts" />
-declare module "@scom/portal-contract/contracts/@openzeppelin/contracts/token/ERC20/ERC20.json.ts" {
+/// <amd-module name="@scom/portal-contract/contracts/AuditInfo.json.ts" />
+declare module "@scom/portal-contract/contracts/AuditInfo.json.ts" {
     const _default: {
         abi: ({
             inputs: {
@@ -43,147 +43,6 @@ declare module "@scom/portal-contract/contracts/@openzeppelin/contracts/token/ER
         bytecode: string;
     };
     export default _default;
-}
-/// <amd-module name="@scom/portal-contract/contracts/@openzeppelin/contracts/token/ERC20/ERC20.ts" />
-declare module "@scom/portal-contract/contracts/@openzeppelin/contracts/token/ERC20/ERC20.ts" {
-    import { IWallet, Contract as _Contract, TransactionReceipt, BigNumber, Event, TransactionOptions } from "@ijstech/eth-contract";
-    export interface IDeployParams {
-        name: string;
-        symbol: string;
-    }
-    export interface IAllowanceParams {
-        owner: string;
-        spender: string;
-    }
-    export interface IApproveParams {
-        spender: string;
-        amount: number | BigNumber;
-    }
-    export interface IDecreaseAllowanceParams {
-        spender: string;
-        subtractedValue: number | BigNumber;
-    }
-    export interface IIncreaseAllowanceParams {
-        spender: string;
-        addedValue: number | BigNumber;
-    }
-    export interface ITransferParams {
-        to: string;
-        amount: number | BigNumber;
-    }
-    export interface ITransferFromParams {
-        from: string;
-        to: string;
-        amount: number | BigNumber;
-    }
-    export class ERC20 extends _Contract {
-        static _abi: any;
-        constructor(wallet: IWallet, address?: string);
-        deploy(params: IDeployParams, options?: TransactionOptions): Promise<string>;
-        parseApprovalEvent(receipt: TransactionReceipt): ERC20.ApprovalEvent[];
-        decodeApprovalEvent(event: Event): ERC20.ApprovalEvent;
-        parseTransferEvent(receipt: TransactionReceipt): ERC20.TransferEvent[];
-        decodeTransferEvent(event: Event): ERC20.TransferEvent;
-        allowance: {
-            (params: IAllowanceParams, options?: TransactionOptions): Promise<BigNumber>;
-        };
-        approve: {
-            (params: IApproveParams, options?: TransactionOptions): Promise<TransactionReceipt>;
-            call: (params: IApproveParams, options?: TransactionOptions) => Promise<boolean>;
-        };
-        balanceOf: {
-            (account: string, options?: TransactionOptions): Promise<BigNumber>;
-        };
-        decimals: {
-            (options?: TransactionOptions): Promise<BigNumber>;
-        };
-        decreaseAllowance: {
-            (params: IDecreaseAllowanceParams, options?: TransactionOptions): Promise<TransactionReceipt>;
-            call: (params: IDecreaseAllowanceParams, options?: TransactionOptions) => Promise<boolean>;
-        };
-        increaseAllowance: {
-            (params: IIncreaseAllowanceParams, options?: TransactionOptions): Promise<TransactionReceipt>;
-            call: (params: IIncreaseAllowanceParams, options?: TransactionOptions) => Promise<boolean>;
-        };
-        name: {
-            (options?: TransactionOptions): Promise<string>;
-        };
-        symbol: {
-            (options?: TransactionOptions): Promise<string>;
-        };
-        totalSupply: {
-            (options?: TransactionOptions): Promise<BigNumber>;
-        };
-        transfer: {
-            (params: ITransferParams, options?: TransactionOptions): Promise<TransactionReceipt>;
-            call: (params: ITransferParams, options?: TransactionOptions) => Promise<boolean>;
-        };
-        transferFrom: {
-            (params: ITransferFromParams, options?: TransactionOptions): Promise<TransactionReceipt>;
-            call: (params: ITransferFromParams, options?: TransactionOptions) => Promise<boolean>;
-        };
-        private assign;
-    }
-    export module ERC20 {
-        interface ApprovalEvent {
-            owner: string;
-            spender: string;
-            value: BigNumber;
-            _event: Event;
-        }
-        interface TransferEvent {
-            from: string;
-            to: string;
-            value: BigNumber;
-            _event: Event;
-        }
-    }
-}
-/// <amd-module name="@scom/portal-contract/contracts/AuditInfo.json.ts" />
-declare module "@scom/portal-contract/contracts/AuditInfo.json.ts" {
-    const _default_1: {
-        abi: ({
-            inputs: {
-                internalType: string;
-                name: string;
-                type: string;
-            }[];
-            stateMutability: string;
-            type: string;
-            anonymous?: undefined;
-            name?: undefined;
-            outputs?: undefined;
-        } | {
-            anonymous: boolean;
-            inputs: {
-                indexed: boolean;
-                internalType: string;
-                name: string;
-                type: string;
-            }[];
-            name: string;
-            type: string;
-            stateMutability?: undefined;
-            outputs?: undefined;
-        } | {
-            inputs: {
-                internalType: string;
-                name: string;
-                type: string;
-            }[];
-            name: string;
-            outputs: {
-                internalType: string;
-                name: string;
-                type: string;
-            }[];
-            stateMutability: string;
-            type: string;
-            anonymous?: undefined;
-        })[];
-        bytecode: string;
-    };
-    export default _default_1;
 }
 /// <amd-module name="@scom/portal-contract/contracts/AuditInfo.ts" />
 declare module "@scom/portal-contract/contracts/AuditInfo.ts" {
@@ -351,7 +210,7 @@ declare module "@scom/portal-contract/contracts/AuditInfo.ts" {
 }
 /// <amd-module name="@scom/portal-contract/contracts/AuditorInfo.json.ts" />
 declare module "@scom/portal-contract/contracts/AuditorInfo.json.ts" {
-    const _default_2: {
+    const _default_1: {
         abi: ({
             inputs: {
                 internalType: string;
@@ -413,7 +272,7 @@ declare module "@scom/portal-contract/contracts/AuditorInfo.json.ts" {
         })[];
         bytecode: string;
     };
-    export default _default_2;
+    export default _default_1;
 }
 /// <amd-module name="@scom/portal-contract/contracts/AuditorInfo.ts" />
 declare module "@scom/portal-contract/contracts/AuditorInfo.ts" {
@@ -590,7 +449,7 @@ declare module "@scom/portal-contract/contracts/AuditorInfo.ts" {
 }
 /// <amd-module name="@scom/portal-contract/contracts/Authorization.json.ts" />
 declare module "@scom/portal-contract/contracts/Authorization.json.ts" {
-    const _default_3: {
+    const _default_2: {
         abi: ({
             inputs: any[];
             stateMutability: string;
@@ -628,7 +487,7 @@ declare module "@scom/portal-contract/contracts/Authorization.json.ts" {
         })[];
         bytecode: string;
     };
-    export default _default_3;
+    export default _default_2;
 }
 /// <amd-module name="@scom/portal-contract/contracts/Authorization.ts" />
 declare module "@scom/portal-contract/contracts/Authorization.ts" {
@@ -693,7 +552,7 @@ declare module "@scom/portal-contract/contracts/Authorization.ts" {
 }
 /// <amd-module name="@scom/portal-contract/contracts/DomainInfo.json.ts" />
 declare module "@scom/portal-contract/contracts/DomainInfo.json.ts" {
-    const _default_4: {
+    const _default_3: {
         abi: ({
             inputs: {
                 internalType: string;
@@ -735,7 +594,7 @@ declare module "@scom/portal-contract/contracts/DomainInfo.json.ts" {
         })[];
         bytecode: string;
     };
-    export default _default_4;
+    export default _default_3;
 }
 /// <amd-module name="@scom/portal-contract/contracts/DomainInfo.ts" />
 declare module "@scom/portal-contract/contracts/DomainInfo.ts" {
@@ -958,7 +817,7 @@ declare module "@scom/portal-contract/contracts/DomainInfo.ts" {
 }
 /// <amd-module name="@scom/portal-contract/contracts/ModuleInfo.json.ts" />
 declare module "@scom/portal-contract/contracts/ModuleInfo.json.ts" {
-    const _default_5: {
+    const _default_4: {
         abi: ({
             anonymous: boolean;
             inputs: {
@@ -999,7 +858,7 @@ declare module "@scom/portal-contract/contracts/ModuleInfo.json.ts" {
         })[];
         bytecode: string;
     };
-    export default _default_5;
+    export default _default_4;
 }
 /// <amd-module name="@scom/portal-contract/contracts/ModuleInfo.ts" />
 declare module "@scom/portal-contract/contracts/ModuleInfo.ts" {
@@ -1160,7 +1019,7 @@ declare module "@scom/portal-contract/contracts/ModuleInfo.ts" {
 }
 /// <amd-module name="@scom/portal-contract/contracts/ProjectInfo.json.ts" />
 declare module "@scom/portal-contract/contracts/ProjectInfo.json.ts" {
-    const _default_6: {
+    const _default_5: {
         abi: ({
             inputs: {
                 internalType: string;
@@ -1248,7 +1107,7 @@ declare module "@scom/portal-contract/contracts/ProjectInfo.json.ts" {
         })[];
         bytecode: string;
     };
-    export default _default_6;
+    export default _default_5;
 }
 /// <amd-module name="@scom/portal-contract/contracts/ProjectInfo.ts" />
 declare module "@scom/portal-contract/contracts/ProjectInfo.ts" {
@@ -1268,6 +1127,7 @@ declare module "@scom/portal-contract/contracts/ProjectInfo.ts" {
     export interface INewPackageParams {
         projectId: number | BigNumber;
         name: string;
+        category: string;
         ipfsCid: string;
     }
     export interface INewPackageVersionParams {
@@ -1504,8 +1364,9 @@ declare module "@scom/portal-contract/contracts/ProjectInfo.ts" {
             (param1: number | BigNumber, options?: TransactionOptions): Promise<{
                 projectId: BigNumber;
                 currVersionIndex: BigNumber;
-                status: BigNumber;
                 ipfsCid: string;
+                category: string;
+                status: BigNumber;
             }>;
         };
         packagesLength: {
@@ -1738,7 +1599,7 @@ declare module "@scom/portal-contract/contracts/ProjectInfo.ts" {
 }
 /// <amd-module name="@scom/portal-contract/contracts/Scom.json.ts" />
 declare module "@scom/portal-contract/contracts/Scom.json.ts" {
-    const _default_7: {
+    const _default_6: {
         abi: ({
             inputs: {
                 internalType: string;
@@ -1780,7 +1641,7 @@ declare module "@scom/portal-contract/contracts/Scom.json.ts" {
         })[];
         bytecode: string;
     };
-    export default _default_7;
+    export default _default_6;
 }
 /// <amd-module name="@scom/portal-contract/contracts/Scom.ts" />
 declare module "@scom/portal-contract/contracts/Scom.ts" {
@@ -1895,7 +1756,6 @@ declare module "@scom/portal-contract/contracts/Scom.ts" {
 }
 /// <amd-module name="@scom/portal-contract/contracts/index.ts" />
 declare module "@scom/portal-contract/contracts/index.ts" {
-    export { ERC20 } from "@scom/portal-contract/contracts/@openzeppelin/contracts/token/ERC20/ERC20.ts";
     export { AuditInfo } from "@scom/portal-contract/contracts/AuditInfo.ts";
     export { AuditorInfo } from "@scom/portal-contract/contracts/AuditorInfo.ts";
     export { Authorization } from "@scom/portal-contract/contracts/Authorization.ts";
@@ -1906,7 +1766,7 @@ declare module "@scom/portal-contract/contracts/index.ts" {
 }
 /// <amd-module name="@scom/portal-contract" />
 declare module "@scom/portal-contract" {
-    import { IWallet, BigNumber } from "@ijstech/eth-contract";
+    import { IWallet, BigNumber } from "@ijstech/eth-wallet";
     import * as Contracts from "@scom/portal-contract/contracts/index.ts";
     export { Contracts };
     export interface IDeployOptions {
@@ -1939,10 +1799,10 @@ declare module "@scom/portal-contract" {
     }
     export var DefaultDeployOptions: IDeployOptions;
     export function deploy(wallet: IWallet, Config: IDeployOptions, onProgress: (msg: string) => void): Promise<IDeployResult>;
-    const _default_8: {
+    const _default_7: {
         Contracts: typeof Contracts;
         deploy: typeof deploy;
         DefaultDeployOptions: IDeployOptions;
     };
-    export default _default_8;
+    export default _default_7;
 }

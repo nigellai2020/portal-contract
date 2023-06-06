@@ -1,4 +1,3 @@
-export { ERC20 } from './@openzeppelin/contracts/token/ERC20/ERC20';
 export { AuditInfo } from './AuditInfo';
 export { AuditorInfo } from './AuditorInfo';
 export { Authorization } from './Authorization';

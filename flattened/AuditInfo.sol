@@ -1,8 +1,5 @@
-// Sources flattened with hardhat v2.11.1 https://hardhat.org
-
-// File contracts/Authorization.sol
-
 // SPDX-License-Identifier: GPL-3.0-only
+
 pragma solidity 0.8.13;
 
 contract Authorization {
@@ -43,77 +40,6 @@ contract Authorization {
         emit Deauthorize(user);
     }
 }
-
-
-// File @openzeppelin/contracts/security/ReentrancyGuard.sol@v4.6.0
-
-
-// OpenZeppelin Contracts v4.4.1 (security/ReentrancyGuard.sol)
-
-pragma solidity ^0.8.0;
-
-/**
- * @dev Contract module that helps prevent reentrant calls to a function.
- *
- * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
- * available, which can be applied to functions to make sure there are no nested
- * (reentrant) calls to them.
- *
- * Note that because there is a single `nonReentrant` guard, functions marked as
- * `nonReentrant` may not call one another. This can be worked around by making
- * those functions `private`, and then adding `external` `nonReentrant` entry
- * points to them.
- *
- * TIP: If you would like to learn more about reentrancy and alternative ways
- * to protect against it, check out our blog post
- * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
- */
-abstract contract ReentrancyGuard {
-    // Booleans are more expensive than uint256 or any type that takes up a full
-    // word because each write operation emits an extra SLOAD to first read the
-    // slot's contents, replace the bits taken up by the boolean, and then write
-    // back. This is the compiler's defense against contract upgrades and
-    // pointer aliasing, and it cannot be disabled.
-
-    // The values being non-zero value makes deployment a bit more expensive,
-    // but in exchange the refund on every call to nonReentrant will be lower in
-    // amount. Since refunds are capped to a percentage of the total
-    // transaction's gas, it is best to keep them low in cases like this one, to
-    // increase the likelihood of the full refund coming into effect.
-    uint256 private constant _NOT_ENTERED = 1;
-    uint256 private constant _ENTERED = 2;
-
-    uint256 private _status;
-
-    constructor() {
-        _status = _NOT_ENTERED;
-    }
-
-    /**
-     * @dev Prevents a contract from calling itself, directly or indirectly.
-     * Calling a `nonReentrant` function from another `nonReentrant`
-     * function is not supported. It is possible to prevent this from happening
-     * by making the `nonReentrant` function external, and making it call a
-     * `private` function that does the actual work.
-     */
-    modifier nonReentrant() {
-        // On the first call to nonReentrant, _notEntered will be true
-        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
-
-        // Any calls to nonReentrant after this point will fail
-        _status = _ENTERED;
-
-        _;
-
-        // By storing the original value once again, a refund is triggered (see
-        // https://eips.ethereum.org/EIPS/eip-2200)
-        _status = _NOT_ENTERED;
-    }
-}
-
-
-// File @openzeppelin/contracts/token/ERC20/IERC20.sol@v4.6.0
-
 
 // OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
 
@@ -197,11 +123,130 @@ interface IERC20 {
     ) external returns (bool);
 }
 
+// OpenZeppelin Contracts v4.4.1 (security/ReentrancyGuard.sol)
 
-// File @openzeppelin/contracts/utils/Address.sol@v4.6.0
+pragma solidity ^0.8.0;
 
+/**
+ * @dev Contract module that helps prevent reentrant calls to a function.
+ *
+ * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
+ * available, which can be applied to functions to make sure there are no nested
+ * (reentrant) calls to them.
+ *
+ * Note that because there is a single `nonReentrant` guard, functions marked as
+ * `nonReentrant` may not call one another. This can be worked around by making
+ * those functions `private`, and then adding `external` `nonReentrant` entry
+ * points to them.
+ *
+ * TIP: If you would like to learn more about reentrancy and alternative ways
+ * to protect against it, check out our blog post
+ * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
+ */
+abstract contract ReentrancyGuard {
+    // Booleans are more expensive than uint256 or any type that takes up a full
+    // word because each write operation emits an extra SLOAD to first read the
+    // slot's contents, replace the bits taken up by the boolean, and then write
+    // back. This is the compiler's defense against contract upgrades and
+    // pointer aliasing, and it cannot be disabled.
 
-// OpenZeppelin Contracts (last updated v4.5.0) (utils/Address.sol)
+    // The values being non-zero value makes deployment a bit more expensive,
+    // but in exchange the refund on every call to nonReentrant will be lower in
+    // amount. Since refunds are capped to a percentage of the total
+    // transaction's gas, it is best to keep them low in cases like this one, to
+    // increase the likelihood of the full refund coming into effect.
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and making it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        // On the first call to nonReentrant, _notEntered will be true
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        // Any calls to nonReentrant after this point will fail
+        _status = _ENTERED;
+
+        _;
+
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _status = _NOT_ENTERED;
+    }
+}
+
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/draft-IERC20Permit.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 Permit extension allowing approvals to be made via signatures, as defined in
+ * https://eips.ethereum.org/EIPS/eip-2612[EIP-2612].
+ *
+ * Adds the {permit} method, which can be used to change an account's ERC20 allowance (see {IERC20-allowance}) by
+ * presenting a message signed by the account. By not relying on {IERC20-approve}, the token holder account doesn't
+ * need to send a transaction, and thus is not required to hold Ether at all.
+ */
+interface IERC20Permit {
+    /**
+     * @dev Sets `value` as the allowance of `spender` over ``owner``'s tokens,
+     * given ``owner``'s signed approval.
+     *
+     * IMPORTANT: The same issues {IERC20-approve} has related to transaction
+     * ordering also apply here.
+     *
+     * Emits an {Approval} event.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     * - `deadline` must be a timestamp in the future.
+     * - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner`
+     * over the EIP712-formatted function arguments.
+     * - the signature must use ``owner``'s current nonce (see {nonces}).
+     *
+     * For more information on the signature format, see the
+     * https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP
+     * section].
+     */
+    function permit(
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external;
+
+    /**
+     * @dev Returns the current nonce for `owner`. This value must be
+     * included whenever a signature is generated for {permit}.
+     *
+     * Every successful call to {permit} increases ``owner``'s nonce by one. This
+     * prevents a signature from being used multiple times.
+     */
+    function nonces(address owner) external view returns (uint256);
+
+    /**
+     * @dev Returns the domain separator used in the encoding of the signature for {permit}, as defined by {EIP712}.
+     */
+    // solhint-disable-next-line func-name-mixedcase
+    function DOMAIN_SEPARATOR() external view returns (bytes32);
+}
+
+// OpenZeppelin Contracts (last updated v4.7.0) (utils/Address.sol)
 
 pragma solidity ^0.8.1;
 
@@ -411,7 +456,7 @@ library Address {
             // Look for revert reason and bubble it up if present
             if (returndata.length > 0) {
                 // The easiest way to bubble the revert reason is using memory via assembly
-
+                /// @solidity memory-safe-assembly
                 assembly {
                     let returndata_size := mload(returndata)
                     revert(add(32, returndata), returndata_size)
@@ -423,13 +468,11 @@ library Address {
     }
 }
 
-
-// File @openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol@v4.6.0
-
-
-// OpenZeppelin Contracts v4.4.1 (token/ERC20/utils/SafeERC20.sol)
+// OpenZeppelin Contracts (last updated v4.7.0) (token/ERC20/utils/SafeERC20.sol)
 
 pragma solidity ^0.8.0;
+
+
 
 
 /**
@@ -505,6 +548,22 @@ library SafeERC20 {
         }
     }
 
+    function safePermit(
+        IERC20Permit token,
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) internal {
+        uint256 nonceBefore = token.nonces(owner);
+        token.permit(owner, spender, value, deadline, v, r, s);
+        uint256 nonceAfter = token.nonces(owner);
+        require(nonceAfter == nonceBefore + 1, "SafeERC20: permit did not succeed");
+    }
+
     /**
      * @dev Imitates a Solidity high-level call (i.e. a regular function call to a contract), relaxing the requirement
      * on the return value: the return value is optional (but if data is returned, it must not be false).
@@ -524,11 +583,8 @@ library SafeERC20 {
     }
 }
 
+pragma solidity 0.8.13;
 
-// File contracts/AuditorInfo.sol
-
-
-pragma solidity 0.8.13;
 contract AuditorInfo is Authorization, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
@@ -667,12 +723,8 @@ contract AuditorInfo is Authorization, ReentrancyGuard {
         balance = token.balanceOf(address(this)) - balance;
     }
 }
-
-
-// File contracts/ProjectInfo.sol
-
-
 pragma solidity 0.8.13;
+
 
 
 
@@ -681,22 +733,15 @@ pragma solidity 0.8.13;
 contract ProjectInfo is Authorization, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
-    enum ProjectStatus {INACTIVE, ACTIVE}
     enum PackageStatus {INACTIVE, ACTIVE}
-    enum PackageVersionStatus {AUDITING, AUDIT_PASSED, AUDIT_FAILED, VOIDED}
+    enum PackageVersionStatus {WORKING, AUDITING, VOIDED}
 
-    struct ProjectVersion {
-        uint256 projectId;
-        uint256 version;
-        string ipfsCid;
-        ProjectStatus status;
-        uint64 lastModifiedDate;
-    }
     struct Package {
         uint256 projectId;
         uint256 currVersionIndex;
-        PackageStatus status;
         string ipfsCid;
+        bytes32 category;
+        PackageStatus status;
     }
     struct SemVer {
         uint256 major;
@@ -708,16 +753,21 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
         SemVer version;
         PackageVersionStatus status;
         string ipfsCid;
-        string reportUri;
+        uint256 timestamp;
     }
     
     IERC20 public immutable token;
     AuditorInfo public auditorInfo;
     // active package list
     uint256 public projectCount;
+    // package name max length: 214, repository name max length: 100
+    uint256 private constant maxNameLength = 100;
 
     mapping(uint256 => uint256) public projectBalance; //projectBalance[projectId] = amount
     mapping(address => mapping(uint256 => uint256)) public projectBackerBalance; //projectBackerBalance[staker][projectId] = amount
+    mapping(uint256 => bytes) public projectName; // projectName[projectId] = name
+    mapping(bytes => uint256) public projectNameInv; //  projectNameInv[name] = projectId
+    mapping(uint256 => string) public projectIpfsCid; // projectIpfsCid[projectId] = ipfsCid
     
     // project <-> owner / admin
     mapping(uint256 => address) public projectOwner; // projectOwner[projectId] = owner
@@ -727,37 +777,38 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
     mapping(uint256 => address[]) public projectAdmin; // projectAdmin[projectId][idx] = admin
     mapping(uint256 => mapping(address => uint256)) public projectAdminInv; // projectAdminInv[projectId][admin] = idx
 
-    // project meta
-    ProjectVersion[] public projectVersions; // projectVersions[projectVersionIdx] = {projectId, version, ipfsCid, PackageVersionStatus}
-    mapping(string => uint256) public projectVersionsInv; // projectVersionsInv[ipfsCid] = projectVersionIdx;
-    mapping(uint256 => uint256) public projectCurrentVersion; // projectCurrentVersion[projectId] = projectVersionIdx;
-    mapping(uint256 => uint256[]) public projectVersionList; // projectVersionList[projectId][idx] = projectVersionIdx
-
     // package
     Package[] public packages; // packages[packageId] = {projectId, currVersionIndex, status}
     PackageVersion[] public packageVersions; // packageVersions[packageVersionsId] = {packageId, version, status, ipfsCid}
     mapping(uint256 => uint256[]) public packageVersionsList; // packageVersionsList[packageId][idx] = packageVersionsId
-    mapping(uint256 => PackageVersion) public latestAuditedPackageVersion; // latestAuditedPackageVersion[packageId] = {packageId, version, status, ipfsCid}
+    mapping(uint256 => mapping(uint256 => bytes)) public packageName; // packageName[projectId][packageId] = name;
+    mapping(uint256 => mapping(bytes => uint256)) public packageNameInv; // packageNameInv[projectId][name] = packageId;
+
+    // package <-> admin
+    mapping(uint256 => address[]) public packageAdmin; // packageAdmin[packageId][idx] = admin
+    mapping(uint256 => mapping(address => uint256)) public packageAdminInv; // packageAdminInv[packageId][admin] = idx
 
     // project <-> package
     mapping(uint256 => uint256[]) public projectPackages; // projectPackages[projectId][projectPackagesIdx] = packageId
     mapping(uint256 => mapping(uint256 => uint256)) public projectPackagesInv; // projectPackagesInv[projectId][packageId] = projectPackagesIdx
+    mapping(uint256 => uint256) private projectPackagesMaxLength; // projectPackagesMaxLength[projectId] = length
 
-    event NewProject(uint256 indexed projectId, address indexed owner);
-    event NewProjectVersion(uint256 indexed projectId, uint256 indexed projectVersionIdx, string ipfsCid);
-    event VoidProjectVersion(uint256 indexed projectVersionIdx);
-    event SetProjectCurrentVersion(uint256 indexed projectId, uint256 indexed projectVersionIdx);
+    event NewProject(uint256 indexed projectId, address indexed owner, string name, string ipfsCid);
+    event UpdateProjectName(uint256 indexed projectId, string name);
+    event UpdateProjectIpfsCid(uint256 indexed projectId, string ipfsCid);
     
     event TransferProjectOwnership(uint256 indexed projectId, address indexed newOwner);
     event AddAdmin(uint256 indexed projectId, address indexed admin);
     event RemoveAdmin(uint256 indexed projectId, address indexed admin);
 
-    event NewPackage(uint256 indexed projectId, uint256 indexed packageId, string ipfsCid);
+    event NewPackage(uint256 indexed projectId, uint256 indexed packageId, string name, string ipfsCid);
+    event UpdatePackageName(uint256 indexed packageId, string name);
     event UpdatePackageIpfsCid(uint256 indexed packageId, string ipfsCid);
     event NewPackageVersion(uint256 indexed packageId, uint256 indexed packageVersionId, SemVer version);
+    event UpdatePackageVersionIpfsCid(uint256 indexed packageId, uint256 indexed packageVersionId, string ipfsCid);
     event SetPackageVersionStatus(uint256 indexed packageId, uint256 indexed packageVersionId, PackageVersionStatus status);
-    // event AddProjectPackage(uint256 indexed projectId, uint256 indexed packageId);
-    // event RemoveProjectPackage(uint256 indexed projectId, uint256 indexed packageId);
+    event AddPackageAdmin(uint256 indexed packageId, address indexed admin);
+    event RemovePackageAdmin(uint256 indexed packageId, address indexed admin);
 
     event Stake(address indexed sender, uint256 indexed projectId, uint256 amount, uint256 newBalance);
     event Unstake(address indexed sender, uint256 indexed projectId, uint256 amount, uint256 newBalance);
@@ -780,6 +831,14 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
         _;
     }
 
+    modifier isProjectOwner(uint256 packageId) {
+        require(packageId < packages.length, "invalid packageId");
+        Package storage package = packages[packageId];
+        uint256 projectId = package.projectId;
+        require(projectOwner[package.projectId] == msg.sender, "not from owner");
+        _;
+    }
+
     modifier onlyActiveAuditor {
         require(auditorInfo.isActiveAuditor(msg.sender), "not from active auditor");
         _;
@@ -791,11 +850,8 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
     function projectAdminLength(uint256 projectId) external view returns (uint256 length) {
         length = projectAdmin[projectId].length;
     }
-    function projectVersionsLength() external view returns (uint256 length) {
-        length = projectVersions.length;
-    }
-    function projectVersionListLength(uint256 projectId) external view returns (uint256 length) {
-        length = projectVersionList[projectId].length;
+    function packageAdminLength(uint256 packageId) external view returns (uint256 length) {
+        length = packageAdmin[packageId].length;
     }
     function packagesLength() external view returns (uint256 length) {
         length = packages.length;
@@ -809,19 +865,86 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
     function projectPackagesLength(uint256 projectId) external view returns (uint256 length) {
         length = projectPackages[projectId].length;
     }
+    function _isValidName(bytes memory bName) internal pure returns (bool) {
+        // first char must be a-z0-9-
+        if (bName[0] > 0x7a) return false;
+        if (bName[0] < 0x61) {
+            if (bName[0] > 0x39) return false;
+            if (bName[0] < 0x30 && bName[0] != 0x2d) return false;
+        }
+        // Allowed characters: a-z0-9-._
+        for (uint i = 1; i < bName.length; i++) {
+            if (bName[i] >= 0x61 && bName[i] <= 0x7a) continue;
+            if (bName[i] >= 0x30 && bName[i] <= 0x39) continue;
+            if (bName[i] == 0x2d) continue;
+            if (bName[i] == 0x5f) continue;
+            if (bName[i] == 0x2e) continue;
+            return false;
+        }
+        return true;
+    }
+    function isValidProjectName(uint256 projectId, bytes memory bName) internal view returns (bool) {
+        if (bName.length == 0) return false;
+        // excluding hyphen between project name and package name
+        uint256 pLength = projectPackagesMaxLength[projectId] > 0 ? projectPackagesMaxLength[projectId] : 1;
+        if ((bName.length + pLength) > maxNameLength - 1) return false;
+        if (projectNameInv[bName] != projectId) {
+            bytes memory pName = projectName[projectNameInv[bName]];
+            if (bName.length == pName.length && keccak256(bName) == keccak256(pName)) return false;
+        }
+        return _isValidName(bName);
+    }
+    function isValidPackageName(uint256 projectId, uint256 packageId, bytes memory bName) internal view returns (bool) {
+        if (bName.length == 0) return false;
+        // excluding hyphen between project name and package name
+        if ((projectName[projectId].length + bName.length) > maxNameLength - 1) return false;
+        uint256 _packageId = packageNameInv[projectId][bName];
+        if (_packageId != packageId) {
+            bytes memory pName = packageName[projectId][_packageId];
+            if (bName.length == pName.length && keccak256(bName) == keccak256(pName)) return false;
+        }
+        return _isValidName(bName);
+    }
+    function isPackageAdmin(uint256 packageId) internal view returns (bool) {
+        Package storage package = packages[packageId];
+        uint256 projectId = package.projectId;
+        if((projectAdmin[projectId].length > 0 &&  
+            projectAdmin[projectId][projectAdminInv[projectId][msg.sender]] == msg.sender)
+            || projectOwner[projectId] == msg.sender
+            || (packageAdmin[packageId].length > 0 &&
+            packageAdmin[packageId][packageAdminInv[packageId][msg.sender]] == msg.sender)
+        ) return true;
+        return false;
+    }
 
     //
     // functions called by project owners
     //
-    function newProject(string calldata ipfsCid) external returns (uint256 projectId) {
+    function newProject(string calldata name, string calldata ipfsCid) external returns (uint256 projectId) {
         projectId = projectCount;
+        bytes memory bName = bytes(name);
+        require(isValidProjectName(projectId, bName), "invalid project name");
         projectOwner[projectId] = msg.sender;
         ownersProjectsInv[msg.sender][projectId] = ownersProjects[msg.sender].length;
         ownersProjects[msg.sender].push(projectId);
+        projectName[projectId] = bName;
+        projectNameInv[bName] = projectId;
+        projectIpfsCid[projectId] = ipfsCid;
         projectCount++;
-        emit NewProject(projectId, msg.sender);
-        uint256 versionIdx = newProjectVersion(projectId, ipfsCid);
-        projectCurrentVersion[projectId] = versionIdx;
+        emit NewProject(projectId, msg.sender, name, ipfsCid);
+    }
+    function updateProjectName(uint256 projectId, string calldata name) external isProjectAdminOrOwner(projectId) {
+        bytes memory bName = bytes(name);
+        require(isValidProjectName(projectId, bName), "invalid project name");
+        delete projectNameInv[projectName[projectId]];
+        projectName[projectId] = bName;
+        projectNameInv[bName] = projectId;
+        emit UpdateProjectName(projectId, name);
+    }
+    function updateProjectIpfsCid(uint256 projectId, string calldata ipfsCid) external isProjectAdminOrOwner(projectId) {
+        require(projectId < projectCount, "invalid projectId");
+        projectIpfsCid[projectId] = ipfsCid;
+        emit UpdateProjectIpfsCid(projectId, ipfsCid);
     }
     function _removeProjectFromOwner(address owner, uint256 projectId) internal {
         // make sure the project ownership is checked !
@@ -869,45 +992,35 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
 
         emit RemoveAdmin(projectId, admin);
     }
-    function newProjectVersion(uint256 projectId, string calldata ipfsCid) public isProjectAdminOrOwner(projectId) returns (uint256 versionIdx) {
-        versionIdx = projectVersions.length;
-        projectVersionList[projectId].push(versionIdx); // start from 0
-
-        projectVersionsInv[ipfsCid] = versionIdx;
-        projectVersions.push(ProjectVersion({
-            projectId: projectId,
-            version: projectVersionList[projectId].length, // start from 1
-            ipfsCid: ipfsCid,
-            status: ProjectStatus.ACTIVE,
-            lastModifiedDate: uint64(block.timestamp)
-        }));
-        emit NewProjectVersion(projectId, versionIdx, ipfsCid);
-    }
-    function setProjectCurrentVersion(uint256 projectId, uint256 versionIdx) external isProjectAdminOrOwner(projectId) {
-        require(versionIdx < projectVersions.length, "project not exist");
-        ProjectVersion storage version = projectVersions[versionIdx];
-        require(version.projectId == projectId, "projectId/versionIdx not match");
-        projectCurrentVersion[projectId] = versionIdx;
-        emit SetProjectCurrentVersion(projectId, versionIdx);
-    }
-    function voidProjectVersion(uint256 projectId, uint256 versionIdx) external isProjectAdminOrOwner(projectId) {
-        require(versionIdx < projectVersions.length, "project not exist");
-        ProjectVersion storage version = projectVersions[versionIdx];
-        require(version.projectId == projectId, "projectId/versionIdx not match");
-        version.status = ProjectStatus.INACTIVE;
-        version.lastModifiedDate = uint64(block.timestamp);
-        emit VoidProjectVersion(versionIdx);
-    }
-    function newPackage(uint256 projectId, string calldata ipfsCid) external isProjectAdminOrOwner(projectId) returns (uint256 packageId) {
+    function newPackage(uint256 projectId, string calldata name, bytes32 category, string calldata ipfsCid) external isProjectAdminOrOwner(projectId) returns (uint256 packageId) {
         packageId = packages.length;
+        bytes memory bName = bytes(name);
+        require(isValidPackageName(projectId, packageId, bName), "invalid package name");
         packages.push(Package({
             projectId: projectId,
             currVersionIndex: 0,
-            status: PackageStatus.ACTIVE,
-            ipfsCid: ipfsCid
+            ipfsCid: ipfsCid,
+            category: category,
+            status: PackageStatus.ACTIVE
         }));
+        packageName[projectId][packageId] = bName;
+        packageNameInv[projectId][bName] = packageId;
         projectPackages[projectId].push(packageId);
-        emit NewPackage(projectId, packageId, ipfsCid);
+        if (bName.length > projectPackagesMaxLength[projectId]) {
+            projectPackagesMaxLength[projectId] = bName.length;
+        }
+        emit NewPackage(projectId, packageId, name, ipfsCid);
+    }
+    function updatePackageName(uint256 projectId, uint256 packageId, string calldata name) external isProjectAdminOrOwner(projectId) {
+        bytes memory bName = bytes(name);
+        require(isValidPackageName(projectId, packageId, bName), "invalid package name");
+        delete  packageNameInv[projectId][packageName[projectId][packageId]];
+        packageName[projectId][packageId] = bName;
+        packageNameInv[projectId][bName] = packageId;
+        if (bName.length > projectPackagesMaxLength[projectId]) {
+            projectPackagesMaxLength[projectId] = bName.length;
+        }
+        emit UpdatePackageName(packageId, name);
     }
     function updatePackageIpfsCid(uint256 projectId, uint256 packageId, string calldata ipfsCid) external isProjectAdminOrOwner(projectId) {
         require(packageId < packages.length, "invalid packageId");
@@ -915,6 +1028,24 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
         require(package.projectId == projectId, "projectId/packageId not match");
         package.ipfsCid = ipfsCid;
         emit UpdatePackageIpfsCid(packageId, ipfsCid);
+    }
+    function addPackageAdmin(uint256 packageId, address admin) external isProjectOwner(packageId) {
+        require(packageAdmin[packageId].length == 0 || packageAdmin[packageId][packageAdminInv[packageId][admin]] != admin, "already a admin");
+        packageAdminInv[packageId][admin] = packageAdmin[packageId].length;
+        packageAdmin[packageId].push(admin);
+        emit AddPackageAdmin(packageId, admin);
+    }
+    function removePackageAdmin(uint256 packageId, address admin) external isProjectOwner(packageId) {
+        uint256 idx = packageAdminInv[packageId][admin];
+        uint256 lastIdx = packageAdmin[packageId].length - 1;
+        if (idx < lastIdx) {
+            address lastAdmin = packageAdmin[packageId][lastIdx];
+            packageAdminInv[packageId][lastAdmin] = idx;
+            packageAdmin[packageId][idx] = lastAdmin;
+        }
+        delete packageAdminInv[packageId][admin];
+        packageAdmin[packageId].pop();
+        emit RemovePackageAdmin(packageId, admin);
     }
 
     function newPackageVersion(uint256 projectId, uint256 packageId, SemVer memory version, string calldata ipfsCid) public isProjectAdminOrOwner(projectId) returns (uint256 packageVersionId) {
@@ -941,12 +1072,20 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
         packageVersions.push(PackageVersion({
             packageId: packageId,
             version: version,
-            status: PackageVersionStatus.AUDITING,
+            status: PackageVersionStatus.WORKING,
             ipfsCid: ipfsCid,
-            reportUri: ""
+            timestamp: block.timestamp
         }));
 
         emit NewPackageVersion(packageId, packageVersionId, version);
+    }
+    function updatePackageVersionIpfsCid(uint256 packageVersionId, string calldata ipfsCid) external {
+        require(packageVersionId < packageVersions.length, "invalid packageVersionId");
+        PackageVersion storage packageVersion = packageVersions[packageVersionId];
+        require(packageVersion.status == PackageVersionStatus.WORKING, "not under working");
+        require(isPackageAdmin(packageVersion.packageId), "not from admin");
+        packageVersion.ipfsCid = ipfsCid;
+        emit UpdatePackageVersionIpfsCid(packageVersion.packageId, packageVersionId, ipfsCid);
     }
 
     function _setPackageVersionStatus(PackageVersion storage packageVersion, uint256 packageVersionId, PackageVersionStatus status) internal {
@@ -958,24 +1097,16 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
         require(packageVersionId < packageVersions.length, "invalid packageVersionId");
         PackageVersion storage packageVersion = packageVersions[packageVersionId];
         require(packageVersion.status != PackageVersionStatus.VOIDED, "already voided");
-        require(packageVersion.status != PackageVersionStatus.AUDIT_PASSED, "Audit passed version cannot be voided");
+        // require(packageVersion.status != PackageVersionStatus.AUDIT_PASSED, "Audit passed version cannot be voided");
         _setPackageVersionStatus(packageVersion, packageVersionId, PackageVersionStatus.VOIDED);
-    }
-    function setPackageVersionToAuditPassed(uint256 packageVersionId, string calldata reportUri) external onlyActiveAuditor {
-        require(packageVersionId < packageVersions.length, "invalid packageVersionId");
-        PackageVersion storage packageVersion = packageVersions[packageVersionId];
-        require(packageVersion.status == PackageVersionStatus.AUDITING, "not under auditing");
-        latestAuditedPackageVersion[packageVersion.packageId] = packageVersion;
-        packageVersion.reportUri = reportUri;
-        _setPackageVersionStatus(packageVersion, packageVersionId, PackageVersionStatus.AUDIT_PASSED);
     } 
-    function setPackageVersionToAuditFailed(uint256 packageVersionId, string calldata reportUri) external onlyActiveAuditor {
+    function setPackageVersionToAuditing(uint256 packageVersionId) external {
         require(packageVersionId < packageVersions.length, "invalid packageVersionId");
         PackageVersion storage packageVersion = packageVersions[packageVersionId];
-        require(packageVersion.status == PackageVersionStatus.AUDITING, "not under auditing");
-        packageVersion.reportUri = reportUri;
-        _setPackageVersionStatus(packageVersion, packageVersionId, PackageVersionStatus.AUDIT_FAILED);
-    }         
+        require(packageVersion.status == PackageVersionStatus.WORKING, "not under working");
+        require(isPackageAdmin(packageVersion.packageId), "not from admin");
+        _setPackageVersionStatus(packageVersion, packageVersionId, PackageVersionStatus.AUDITING);
+    }
     // function addProjectPackage(uint256 projectId, uint256 packageId) external isProjectAdminOrOwner(projectId) {
     //     require(packageId < packages.length, "invalid packageId");
     //     projectPackagesInv[projectId][packageId] = projectPackages[projectId].length;
@@ -1019,5 +1150,129 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
         balance = token.balanceOf(address(this));
         token.safeTransferFrom(msg.sender, address(this), amount);
         balance = token.balanceOf(address(this)) - balance;
+    }
+}
+pragma solidity 0.8.13;
+
+
+contract AuditInfo is Authorization, ReentrancyGuard {
+
+    enum AuditResult {FAILED, PASSED}
+
+    uint256 public constant QUORUM_BASE = 10 ** 3;
+
+    struct AuditReport {
+        AuditResult auditResult;
+        string ipfsCid;
+        uint256 timestamp;
+    }
+    ProjectInfo public projectInfo;
+    AuditorInfo public auditorInfo;
+    mapping (uint256 => address[]) public packageVersionsAuditors; // packageVersionsAuditors[packageVersionsId][auditorIdx] = auditor;
+    mapping (uint256 => AuditReport[][]) public auditHistory; // auditHistory[packageVersionsId][auditorIdx][historyIndex] = AuditReport
+    mapping (uint256 => mapping(address => uint256)) public packageVersionsAuditorsInv; // packageVersionsAuditorsInv[packageVersionsId][auditor] = auditorIdx;
+    mapping (uint256 => AuditResult) public latestAuditResult; // latestAuditResult[packageVersionsId] = auditResult
+    mapping (uint256 => AuditResult) public lastAuditResultBeforeAuditPeriod; // latestAuditResultBeforeAuditPeriod[packageVersionsId] = auditResult
+
+
+    uint256 public quorum;
+    uint256 public minAuditRequired;
+    uint256 public auditDuration;
+
+    event AddAuditReport(address indexed auditor, uint256 indexed packageVersionsId, AuditResult auditResult, string ipfsCid);
+
+    modifier onlyActiveAuditor {
+        require(auditorInfo.isActiveAuditor(msg.sender), "not from active auditor");
+        _;
+    }
+
+    constructor(ProjectInfo _projectInfo, AuditorInfo _auditorInfo, uint256 _quorum, uint256 _auditDuration, uint256 _minAuditRequired) {
+        require(_quorum < QUORUM_BASE, "invalid quorum");
+        projectInfo = _projectInfo;
+        auditorInfo = _auditorInfo;
+        quorum = _quorum;
+        auditDuration = _auditDuration;
+        minAuditRequired = _minAuditRequired;
+    }
+    function setQuorum(uint256 _quorum) external onlyOwner {
+        quorum = _quorum;
+    }
+    function setAuditDuration(uint256 _auditDuration) external onlyOwner {
+        auditDuration = _auditDuration;
+    }
+    function setMinAuditRequired(uint256 _minAuditRequired) external onlyOwner {
+        minAuditRequired = _minAuditRequired;
+    }
+
+    function auditHistoryAuditorLength(uint256 packageVersionsId) external view returns (uint256 length)  {
+        length = auditHistory[packageVersionsId].length;
+    }
+    function auditHistoryLength(uint256 packageVersionsId, address auditor) external view returns (uint256 length)  {
+        if (packageVersionsAuditors[packageVersionsId][0] == auditor) {
+            length = auditHistory[packageVersionsId][0].length;
+        } else {
+            uint256 auditorIdx = packageVersionsAuditorsInv[packageVersionsId][auditor];
+            if (auditorIdx > 0) {
+                length = auditHistory[packageVersionsId][auditorIdx].length;
+            } else {
+                length = 0;
+            }
+        }
+    }
+    function addAuditReport(uint256 packageVersionsId, AuditResult auditResult, string calldata ipfsCid) external onlyActiveAuditor {
+        uint256 auditorIdx = auditHistory[packageVersionsId].length;
+        if (auditorIdx == 0) {
+            packageVersionsAuditors[packageVersionsId].push(msg.sender);
+            packageVersionsAuditorsInv[packageVersionsId][msg.sender] = auditorIdx;
+            auditHistory[packageVersionsId].push();
+        } else {
+            uint256 auditorIdx2 = packageVersionsAuditorsInv[packageVersionsId][msg.sender];
+            if (auditorIdx2 == 0) {
+                packageVersionsAuditors[packageVersionsId].push(msg.sender);
+                packageVersionsAuditorsInv[packageVersionsId][msg.sender] = auditorIdx;
+                auditHistory[packageVersionsId].push();
+            } else {
+                auditorIdx = auditorIdx2;
+            }
+        }
+        auditHistory[packageVersionsId][auditorIdx].push(
+            AuditReport({
+                auditResult: auditResult,
+                ipfsCid: ipfsCid,
+                timestamp: block.timestamp
+            })
+        );
+        emit AddAuditReport(msg.sender, packageVersionsId, auditResult, ipfsCid);
+
+        uint256 length = auditHistory[packageVersionsId].length;
+        if (length >= minAuditRequired) {
+            uint256 required = length * quorum / QUORUM_BASE;
+            AuditResult finalResult = AuditResult.FAILED;
+            for (uint256 i = 0 ; i < length ; i++) {
+                AuditReport[] storage array = auditHistory[packageVersionsId][i];
+                if (array[array.length - 1].auditResult == AuditResult.PASSED) {
+                    required--;
+                    if (required == 0) {
+                        finalResult = AuditResult.PASSED;
+                        break;
+                    }
+                }
+            }
+            latestAuditResult[packageVersionsId] = finalResult;
+            (,,,,uint256 timestamp) = projectInfo.packageVersions(packageVersionsId);
+            if (block.timestamp < timestamp + auditDuration) {
+                lastAuditResultBeforeAuditPeriod[packageVersionsId] = finalResult;
+            }
+        }
+    }
+    function getLastAuditResult(uint256 packageVersionsId) external view returns (address[] memory auditors, AuditResult[] memory results) {
+        uint256 length = auditHistory[packageVersionsId].length;
+        auditors = new address[](length);
+        results = new AuditResult[](length);
+        for (uint256 i = 0 ; i < length ; i++) {
+            auditors[i] = packageVersionsAuditors[packageVersionsId][i];
+            AuditReport[] storage array = auditHistory[packageVersionsId][i];
+            results[i] = array[array.length - 1].auditResult;
+        }
     }
 }

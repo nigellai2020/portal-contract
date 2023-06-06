@@ -1,0 +1,17 @@
+{
+    "type":"contract",
+    "solidity": {
+        "version": "0.8.13",
+        "optimizerRuns": 999999,
+        "sourceDir": "contracts",
+        "outputDir": "src/contracts",
+        "outputObjects": "bytecode",
+        "flattenFiles": [
+            "contracts/ProjectInfo.sol",
+            "contracts/AuditInfo.sol",
+            "contracts/AuditorInfo.sol",
+            "contracts/DomainInfo.sol",
+            "contracts/Scom.sol"
+        ]
+    }
+}

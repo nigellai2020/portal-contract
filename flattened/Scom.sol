@@ -1,8 +1,4 @@
-// Sources flattened with hardhat v2.11.1 https://hardhat.org
-
 // SPDX-License-Identifier: GPL-3.0-only
-
-// File @openzeppelin/contracts/token/ERC20/IERC20.sol@v4.6.0
 
 // OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
 
@@ -86,9 +82,32 @@ interface IERC20 {
     ) external returns (bool);
 }
 
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/IERC20Metadata.sol)
 
-// File @openzeppelin/contracts/utils/Context.sol@v4.6.0
+pragma solidity ^0.8.0;
 
+
+/**
+ * @dev Interface for the optional metadata functions from the ERC20 standard.
+ *
+ * _Available since v4.1._
+ */
+interface IERC20Metadata is IERC20 {
+    /**
+     * @dev Returns the name of the token.
+     */
+    function name() external view returns (string memory);
+
+    /**
+     * @dev Returns the symbol of the token.
+     */
+    function symbol() external view returns (string memory);
+
+    /**
+     * @dev Returns the decimals places of the token.
+     */
+    function decimals() external view returns (uint8);
+}
 
 // OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
 
@@ -114,43 +133,10 @@ abstract contract Context {
     }
 }
 
-
-// File @openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol@v4.6.0
-
-
-// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/IERC20Metadata.sol)
+// OpenZeppelin Contracts (last updated v4.7.0) (token/ERC20/ERC20.sol)
 
 pragma solidity ^0.8.0;
 
-/**
- * @dev Interface for the optional metadata functions from the ERC20 standard.
- *
- * _Available since v4.1._
- */
-interface IERC20Metadata is IERC20 {
-    /**
-     * @dev Returns the name of the token.
-     */
-    function name() external view returns (string memory);
-
-    /**
-     * @dev Returns the symbol of the token.
-     */
-    function symbol() external view returns (string memory);
-
-    /**
-     * @dev Returns the decimals places of the token.
-     */
-    function decimals() external view returns (uint8);
-}
-
-
-// File @openzeppelin/contracts/token/ERC20/ERC20.sol@v4.6.0
-
-
-// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/ERC20.sol)
-
-pragma solidity ^0.8.0;
 
 
 
@@ -357,7 +343,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     }
 
     /**
-     * @dev Moves `amount` of tokens from `sender` to `recipient`.
+     * @dev Moves `amount` of tokens from `from` to `to`.
      *
      * This internal function is equivalent to {transfer}, and can be used to
      * e.g. implement automatic token fees, slashing mechanisms, etc.
@@ -529,13 +515,10 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     ) internal virtual {}
 }
 
-
-// File @openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol@v4.6.0
-
-
 // OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/ERC20Capped.sol)
 
 pragma solidity ^0.8.0;
+
 
 /**
  * @dev Extension of {ERC20} that adds a cap to the supply of tokens.
@@ -568,17 +551,14 @@ abstract contract ERC20Capped is ERC20 {
     }
 }
 
-
-// File contracts/Scom.sol
-
-
 pragma solidity 0.8.13;
+
 
 
 contract Scom is ERC20Capped {
     address public immutable minter;
 
-    constructor(address _minter, address initSupplyTo, uint initSupply, uint256 totalSupply) ERC20("SCOM", "SCOM") ERC20Capped(totalSupply) public {
+    constructor(address _minter, address initSupplyTo, uint initSupply, uint256 totalSupply) ERC20("SCOM", "SCOM") ERC20Capped(totalSupply) {
         minter = _minter;
         _mint(initSupplyTo, initSupply);
     }

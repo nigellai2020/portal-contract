@@ -16,8 +16,9 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
     struct Package {
         uint256 projectId;
         uint256 currVersionIndex;
-        PackageStatus status;
         string ipfsCid;
+        bytes32 category;
+        PackageStatus status;
     }
     struct SemVer {
         uint256 major;
@@ -37,7 +38,7 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
     // active package list
     uint256 public projectCount;
     // package name max length: 214, repository name max length: 100
-    uint256 private maxNameLength = 100;
+    uint256 private constant maxNameLength = 100;
 
     mapping(uint256 => uint256) public projectBalance; //projectBalance[projectId] = amount
     mapping(address => mapping(uint256 => uint256)) public projectBackerBalance; //projectBackerBalance[staker][projectId] = amount
@@ -268,15 +269,16 @@ contract ProjectInfo is Authorization, ReentrancyGuard {
 
         emit RemoveAdmin(projectId, admin);
     }
-    function newPackage(uint256 projectId, string calldata name, string calldata ipfsCid) external isProjectAdminOrOwner(projectId) returns (uint256 packageId) {
+    function newPackage(uint256 projectId, string calldata name, bytes32 category, string calldata ipfsCid) external isProjectAdminOrOwner(projectId) returns (uint256 packageId) {
         packageId = packages.length;
         bytes memory bName = bytes(name);
         require(isValidPackageName(projectId, packageId, bName), "invalid package name");
         packages.push(Package({
             projectId: projectId,
             currVersionIndex: 0,
-            status: PackageStatus.ACTIVE,
-            ipfsCid: ipfsCid
+            ipfsCid: ipfsCid,
+            category: category,
+            status: PackageStatus.ACTIVE
         }));
         packageName[projectId][packageId] = bName;
         packageNameInv[projectId][bName] = packageId;

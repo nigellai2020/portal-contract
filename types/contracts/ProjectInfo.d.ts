@@ -14,6 +14,7 @@ export interface IAddProjectAdminParams {
 export interface INewPackageParams {
     projectId: number | BigNumber;
     name: string;
+    category: string;
     ipfsCid: string;
 }
 export interface INewPackageVersionParams {
@@ -250,8 +251,9 @@ export declare class ProjectInfo extends _Contract {
         (param1: number | BigNumber, options?: TransactionOptions): Promise<{
             projectId: BigNumber;
             currVersionIndex: BigNumber;
-            status: BigNumber;
             ipfsCid: string;
+            category: string;
+            status: BigNumber;
         }>;
     };
     packagesLength: {

@@ -3,7 +3,7 @@ import Bin from "./ProjectInfo.json";
 export interface IDeployParams {token:string;auditorInfo:string}
 export interface IAddPackageAdminParams {packageId:number|BigNumber;admin:string}
 export interface IAddProjectAdminParams {projectId:number|BigNumber;admin:string}
-export interface INewPackageParams {projectId:number|BigNumber;name:string;ipfsCid:string}
+export interface INewPackageParams {projectId:number|BigNumber;name:string;category:string;ipfsCid:string}
 export interface INewPackageVersionParams {projectId:number|BigNumber;packageId:number|BigNumber;version:{major:number|BigNumber,minor:number|BigNumber,patch:number|BigNumber};ipfsCid:string}
 export interface INewProjectParams {name:string;ipfsCid:string}
 export interface IOwnersProjectsParams {param1:string;param2:number|BigNumber}
@@ -343,7 +343,7 @@ export class ProjectInfo extends _Contract{
         (packageId:number|BigNumber, options?: TransactionOptions): Promise<BigNumber>;
     }
     packages: {
-        (param1:number|BigNumber, options?: TransactionOptions): Promise<{projectId:BigNumber,currVersionIndex:BigNumber,status:BigNumber,ipfsCid:string}>;
+        (param1:number|BigNumber, options?: TransactionOptions): Promise<{projectId:BigNumber,currVersionIndex:BigNumber,ipfsCid:string,category:string,status:BigNumber}>;
     }
     packagesLength: {
         (options?: TransactionOptions): Promise<BigNumber>;
@@ -557,13 +557,14 @@ export class ProjectInfo extends _Contract{
             return new BigNumber(result);
         }
         this.packageVersionsListLength = packageVersionsListLength_call
-        let packages_call = async (param1:number|BigNumber, options?: TransactionOptions): Promise<{projectId:BigNumber,currVersionIndex:BigNumber,status:BigNumber,ipfsCid:string}> => {
+        let packages_call = async (param1:number|BigNumber, options?: TransactionOptions): Promise<{projectId:BigNumber,currVersionIndex:BigNumber,ipfsCid:string,category:string,status:BigNumber}> => {
             let result = await this.call('packages',[this.wallet.utils.toString(param1)],options);
             return {
                 projectId: new BigNumber(result.projectId),
                 currVersionIndex: new BigNumber(result.currVersionIndex),
-                status: new BigNumber(result.status),
-                ipfsCid: result.ipfsCid
+                ipfsCid: result.ipfsCid,
+                category: result.category,
+                status: new BigNumber(result.status)
             };
         }
         this.packages = packages_call
@@ -687,7 +688,7 @@ export class ProjectInfo extends _Contract{
         this.deny = Object.assign(deny_send, {
             call:deny_call
         });
-        let newPackageParams = (params: INewPackageParams) => [this.wallet.utils.toString(params.projectId),params.name,params.ipfsCid];
+        let newPackageParams = (params: INewPackageParams) => [this.wallet.utils.toString(params.projectId),params.name,this.wallet.utils.stringToBytes32(params.category),params.ipfsCid];
         let newPackage_send = async (params: INewPackageParams, options?: TransactionOptions): Promise<TransactionReceipt> => {
             let result = await this.send('newPackage',newPackageParams(params),options);
             return result;
