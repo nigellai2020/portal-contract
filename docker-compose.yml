@@ -1,32 +1,39 @@
 version: "3.1"
 services:
   install:
-    image: node:14.17.0
+    image: node:18
     volumes:
       - .:/data
     command: bash -c "cd /data && rm -rf node_modules && rm -f package-lock.json && npm i"
   update:
-    image: node:14.17.0
+    image: node:18
     volumes:
       - .:/data
-    command: bash -c "cd /data && npm update"     
+    command: bash -c "cd /data && npm update"   
+  deployer:
+    image: node:18
+    volumes:
+      - .:/data
+    ports:
+      - 8080:8080
+    command: bash -c "cd /data && npm run deployer"   
   deploy:
-    image: node:14.17.0
+    image: node:18
     volumes:
       - .:/data
     command: bash -c "cd /data && npm run deploy"    
   setup:
-    image: node:14.17.0
+    image: node:18
     volumes:
       - .:/data
     command: bash -c "cd /data && npm run setup"        
   build:
-    image: node:14.17.0
+    image: node:18
     volumes:
       - .:/data
     command: bash -c "cd /data && npm run build"
   test:
-    image: node:14.17.0
+    image: node:18
     volumes:
       - .:/data
     command: bash -c "cd /data && npm run test:projectInfo"      
